@@ -1,9 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const dropArea = document.getElementById('dropzone');
+    const uploadButton = document.getElementById('uploadButton');
+    const fileInput = document.getElementById('fileInput');
 
     // 防止默认行为
     ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-        dropArea.addEventListener(eventName, preventDefaults, false);
+        document.addEventListener(eventName, preventDefaults, false);
     });
 
     function preventDefaults(e) {
@@ -13,15 +14,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 添加拖放样式
     ['dragenter', 'dragover'].forEach(eventName => {
-        dropArea.addEventListener(eventName, () => dropArea.classList.add('highlight'), false);
+        document.addEventListener(eventName, () => document.body.classList.add('highlight'), false);
     });
 
     ['dragleave', 'drop'].forEach(eventName => {
-        dropArea.addEventListener(eventName, () => dropArea.classList.remove('highlight'), false);
+        document.addEventListener(eventName, () => document.body.classList.remove('highlight'), false);
     });
 
     // 处理文件拖放
-    dropArea.addEventListener('drop', handleDrop, false);
+    document.addEventListener('drop', handleDrop, false);
 
     function handleDrop(e) {
         const dt = e.dataTransfer;
@@ -29,6 +30,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
         handleFiles(files);
     }
+
+    // 处理文件选择按钮点击事件
+    uploadButton.addEventListener('click', () => {
+        fileInput.click();
+    });
+
+    // 处理文件选择事件
+    fileInput.addEventListener('change', (e) => {
+        const files = e.target.files;
+        handleFiles(files);
+    });
 
     function handleFiles(files) {
         ([...files]).forEach(uploadFile);

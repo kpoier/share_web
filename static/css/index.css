@@ -9,7 +9,7 @@ body {
 h1 {
     color: #333;
     font-size: 2.5em;
-    margin-bottom: 50px;
+    margin-bottom: 20px;
 }
 
 /* 调整文件列表容器 */
@@ -60,9 +60,57 @@ h1 {
     width: 100%;
 }
 
-#dropzone { width: 50%; margin: 20px auto; padding: 20px; border: 2px dashed #aaa; }
-/* 在 index.css 文件中添加 */
-#dropzone.highlight {
-    border-color: #00f; /* 改变边框颜色 */
-    background-color: #e0e0ff; /* 改变背景颜色 */
+#uploadButton {
+    background-color: #007BFF; /* 按钮背景颜色 */
+    color: #fff; /* 按钮文字颜色 */
+    border: none; /* 去掉默认边框 */
+    padding: 10px 20px; /* 内边距 */
+    font-size: 1em; /* 字体大小 */
+    border-radius: 5px; /* 圆角 */
+    cursor: pointer; /* 鼠标悬停时显示手型 */
+    transition: background-color 0.3s ease; /* 背景颜色过渡效果 */
+    margin-bottom: 15px;
+}
+
+#uploadButton:hover {
+    background-color: #0056b3; /* 鼠标悬停时的背景颜色 */
+}
+
+#uploadButton:active {
+    background-color: #004494; /* 按下时的背景颜色 */
+}
+
+body.highlight {
+    position: relative;
+    background-color: #f4f4f4;
+}
+
+body.highlight::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(12, 12, 12, 0.3); /* 调低透明度 */
+    -webkit-backdrop-filter: blur(5px); /* 背景模糊效果 */
+    backdrop-filter: blur(5px); /* 背景模糊效果 */
+    z-index: 999; /* 确保模糊背景在弹窗下层 */
+}
+
+body.highlight::after {
+    content: "drop your file here";
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(92, 92, 92, 0.685); /* 更深的背景颜色 */
+    color: #fff;
+    padding: 60px 80px; /* 调整内边距以改变框框大小 */
+    border-radius: 15px; /* 更大的圆角 */
+    font-size: 2.5em; /* 更大的字体 */
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 添加阴影 */
+    z-index: 1000; /* 确保弹窗在最上层 */
+    border: 2px dashed #fff; /* 添加虚线边框 */
 }
