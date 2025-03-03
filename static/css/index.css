@@ -1,0 +1,68 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    padding: 20px;
+    text-align: center;
+}
+
+h1 {
+    color: #333;
+    font-size: 2.5em;
+    margin-bottom: 50px;
+}
+
+/* 调整文件列表容器 */
+.file-list-container {
+    max-width: 800px;   /* 限制最大宽度 */
+    margin: 0 auto;     /* 居中显示 */
+    text-align: left;   /* 让内容左对齐 */
+}
+
+.file-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+/* 修改文件列表项的样式 */
+.file-list li {
+    background-color: #fff;
+    margin: 15px 0;  /* 增加间距 */
+    padding: 20px;  /* 放大每项的间距 */
+    border-radius: 10px;  /* 更大的圆角 */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);  /* 更显眼的阴影 */
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.2em;  /* 放大字体 */
+}
+
+.file-name {
+    flex: 1;  /* 文件名占据最大的空间 */
+    text-decoration: none;
+    color: #007BFF;
+    font-weight: bold;  /* 加粗文件名 */
+}
+
+.file-name:hover {
+    text-decoration: underline;
+}
+
+.file-size, .file-modified {
+    margin-left: 30px; /* 增加文件大小和修改时间之间的间距 */
+    color: #555;
+    font-size: 1.1em;  /* 放大文件大小和修改时间的字体 */
+}
+
+/* 居中对齐文件信息 */
+.file-info {
+    display: flex;
+    justify-content: space-between;  /* 分开每项内容 */
+    width: 100%;
+}
+
+#dropzone { width: 50%; margin: 20px auto; padding: 20px; border: 2px dashed #aaa; }
+/* 在 index.css 文件中添加 */
+#dropzone.highlight {
+    border-color: #00f; /* 改变边框颜色 */
+    background-color: #e0e0ff; /* 改变背景颜色 */
+}
