@@ -1,6 +1,7 @@
-def transform_datasize(size):
+def transform_datasize(size: int) -> str:
+    """字节转换"""
     if size < 1024:
-        return f'{size}B'
+        return f'{size} B'
     elif size < 1024**2:
         return f'{size/1024:.2f} KB'
     elif size < 1024**3:
