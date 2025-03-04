@@ -26,7 +26,7 @@ def get_file():
     for name in files:
         size = os.path.getsize(os.path.join('files', name))
         lists.append({'name': name, 'size': transform_datasize(size)})
-    return lists
+    return jsonify(lists)
 
 @main_bp.route('/api/upload', methods=['POST'])
 def upload_file():

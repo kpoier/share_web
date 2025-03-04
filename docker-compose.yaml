@@ -1,6 +1,9 @@
-version: "3"
 services:
   app:
-    image: your_app_image
+    build: .
+    ports:
+      - "10001:10001"
     volumes:
       - ./mydata:/files
+    environment:
+      - FLASK_ENV=development
