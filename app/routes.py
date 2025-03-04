@@ -33,7 +33,7 @@ def get_file():
         file_path = os.path.join(files_folder, name)
         size = os.path.getsize(file_path)
         lists.append({'name': name, 'size': transform_datasize(size)})
-    return lists
+    return jsonify(lists)
 
 @main_bp.route('/api/upload', methods=['POST'])
 def upload_file():
