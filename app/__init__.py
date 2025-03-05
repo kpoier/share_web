@@ -1,5 +1,5 @@
 from flask import Flask
-import os
+from pathlib import Path
 
 def create_app():
     """创建并配置Flask应用"""
@@ -9,9 +9,8 @@ def create_app():
     app.config.from_object('config.Config')
     
     # 确保files目录存在，如果不存在则创建
-    files_dir = app.config['FILES_FOLDER']
-    if not os.path.exists(files_dir):
-        os.makedirs(files_dir)
+    files_dir = Path(app.config['FILES_FOLDER'])
+    files_dir.mkdir(parents=True, exist_ok=True)
 
     # 在应用中注册蓝图
     with app.app_context():

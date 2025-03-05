@@ -1,9 +1,14 @@
 document.addEventListener('DOMContentLoaded', () => {
     const uploadButton = document.getElementById('uploadButton');
     const fileInput = document.getElementById('fileInput');
+    const events = {
+        preventDefault: ['dragenter', 'dragover', 'dragleave', 'drop'],
+        highlight: ['dragenter', 'dragover'],
+        unhighlight: ['dragleave', 'drop']
+    };
 
     // 防止拖放的默认行为
-    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+    events.preventDefault.forEach(eventName => {
         document.addEventListener(eventName, e => {
             e.preventDefault();
             e.stopPropagation();
@@ -11,10 +16,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // 拖放区域高亮
-    ['dragenter', 'dragover'].forEach(eventName => {
+    events.highlight.forEach(eventName => {
         document.addEventListener(eventName, () => document.body.classList.add('highlight'), false);
     });
-    ['dragleave', 'drop'].forEach(eventName => {
+    events.unhighlight.forEach(eventName => {
         document.addEventListener(eventName, () => document.body.classList.remove('highlight'), false);
     });
 
