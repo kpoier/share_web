@@ -49,21 +49,21 @@ document.addEventListener('DOMContentLoaded', () => {
     function uploadFile(file) {
         const url = 'api/upload';
         const formData = new FormData();
-        formData.append('file', file);
+        formData.append('uploaded_file', file);
 
         fetch(url, {
             method: 'POST',
             body: formData
         })
-        .then(response => response.json())
-        .then(data => {
-            console.log(data);
-            // 重新加载文件列表
-            loadFileList();
-        })
-        .catch(error => {
-            console.error('Error uploading file:', error);
-        });
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                // 重新加载文件列表
+                loadFileList();
+            })
+            .catch(error => {
+                console.error('Error uploading file:', error);
+            });
     }
 
     function loadFileList() {
@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     // 创建一个文件名链接
                     const fileLink = document.createElement('a');
-                    fileLink.href = `/share/${file.name}`;
+                    fileLink.href = `/download/${file.name}`;
                     fileLink.textContent = file.name;
                     fileLink.classList.add('file-name');
 

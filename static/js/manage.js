@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     // 创建一个文件名链接
                     const fileLink = document.createElement('a');
-                    fileLink.href = `/share/${file.name}`;
+                    fileLink.href = `/download/${file.name}`;
                     fileLink.textContent = file.name;
                     fileLink.classList.add('file-name');
 
@@ -49,15 +49,15 @@ document.addEventListener('DOMContentLoaded', () => {
             },
             body: JSON.stringify({ name: fileName })
         })
-        .then(response => response.json())
-        .then(data => {
-            console.log('Delete success:', data);
-            // 重新加载文件列表
-            loadFileList();
-        })
-        .catch(error => {
-            console.error('Error deleting file:', error);
-        });
+            .then(response => response.json())
+            .then(data => {
+                console.log('Delete success:', data);
+                // 重新加载文件列表
+                loadFileList();
+            })
+            .catch(error => {
+                console.error('Error deleting file:', error);
+            });
     }
 
     // 初始加载文件列表
