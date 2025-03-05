@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded', () => {
     ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
         document.addEventListener(eventName, preventDefaults, false);
     });
-
     function preventDefaults(e) {
         e.preventDefault();
         e.stopPropagation();
@@ -16,20 +15,17 @@ document.addEventListener('DOMContentLoaded', () => {
     ['dragenter', 'dragover'].forEach(eventName => {
         document.addEventListener(eventName, () => document.body.classList.add('highlight'), false);
     });
-
     ['dragleave', 'drop'].forEach(eventName => {
         document.addEventListener(eventName, () => document.body.classList.remove('highlight'), false);
     });
 
     // 处理文件拖放
-    document.addEventListener('drop', handleDrop, false);
+    document.addEventListener('drop', (e) => {
+        let dt = e.dataTransfer;
+        let files = dt.files;
+        ([...files]).forEach(uploadFile);
+    }, false);
 
-    function handleDrop(e) {
-        const dt = e.dataTransfer;
-        const files = dt.files;
-
-        handleFiles(files);
-    }
 
     // 处理文件选择按钮点击事件
     uploadButton.addEventListener('click', () => {
@@ -39,12 +35,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // 处理文件选择事件
     fileInput.addEventListener('change', (e) => {
         const files = e.target.files;
-        handleFiles(files);
-    });
-
-    function handleFiles(files) {
         ([...files]).forEach(uploadFile);
-    }
+    });
 
     function uploadFile(file) {
         const url = 'api/upload';
@@ -75,16 +67,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 fileList.forEach(file => {
                     const listItem = document.createElement('li');
 
-                    // 创建一个文件名链接
+                    // 创建文件名链接
                     const fileLink = document.createElement('a');
-                    fileLink.href = `/download/${file.name}`;
+                    fileLink.href = `/${file.name}`; // 指向统一的文件处理路由
                     fileLink.textContent = file.name;
                     fileLink.classList.add('file-name');
 
-                    // 创建显示文件大小的元素
+                    // 如果是图片，添加图片标识类
+                    if (file.isImage) {
+                        fileLink.classList.add('image-file');
+                    }
+
+                    // 创建文件大小元素
                     const fileSize = document.createElement('span');
                     fileSize.classList.add('file-size');
-                    fileSize.textContent = `${file.size}`;
+                    fileSize.textContent = file.size;
 
                     // 将文件信息包含在一起
                     const fileInfo = document.createElement('div');

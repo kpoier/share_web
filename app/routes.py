@@ -1,6 +1,5 @@
-from flask import Blueprint, render_template, send_from_directory, request, jsonify, current_app
+from flask import Blueprint, render_template, send_from_directory, request, jsonify, current_app, redirect, url_for
 from .function import *
-from pathlib import Path
 # 创建蓝图，用于组织相关路由
 main_bp = Blueprint('main', __name__) 
 files_folder = current_app.config.get('FILES_FOLDER', 'files')
@@ -16,9 +15,24 @@ def manage():
     return render_template('manage.html')
 
 @main_bp.route('/download/<name>')
-def download(name):
+def download_file(name):
     """文件下载路由"""
-    return send_from_directory(files_folder, name, as_attachment=True), 200
+    return send_from_directory(files_folder, name, as_attachment=True)
+
+@main_bp.route('/<name>')
+def access_file(name):
+    """文件访问路由 - 根据文件类型决定预览或下载"""
+    if is_image(name):
+        return render_template('image_view.html', name=name)
+    else:
+        return redirect(url_for('main.download_file', name=name))
+
+@main_bp.route('/image/<name>')
+def get_image(name):
+    """获取图片内容（不作为附件）"""
+    if not is_image(name):
+        return "不是有效的图片文件", 400
+    return send_from_directory(files_folder, name)
 
 @main_bp.route('/api/get_files')
 def get_file():
@@ -36,7 +50,7 @@ def upload_file():
 
 @main_bp.route('/api/delete', methods=['POST'])
 def delete_file():
-    """API路由，删除文件"""
+    """删除文件"""
     if delete_file_func(files_folder, request.json.get('name')):
         return jsonify({'success': 'Delete success'}), 200
     return jsonify({'error': 'Delete failed'}), 400

@@ -11,23 +11,22 @@ def transform_datasize(size: int) -> str:
     else:
         return f'{size/1024**3:.2f} GB'
 
-def is_previewable(file_type: str) -> bool:
-    """判断是否可以预览"""
-    previewable_types = ['txt', 'md', 'py', 'json', 'html', 'css', 'js']
-    return file_type in previewable_types
+def is_image(filename: str) -> bool:
+    """判断文件是否为图片"""
+    ext = Path(filename).suffix.lower().lstrip('.')
+    return ext in ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp', 'svg']
 
 def get_file_info(files_folder: Path) -> list:
-    """获取文件类型"""
+    """获取文件信息列表"""
     lists = []
     folder = Path(files_folder)
     for file_path in folder.iterdir():
-        file_type = file_path.suffix.lstrip('.')
-        lists.append({
-            'name': file_path.name, 
-            'size': transform_datasize(file_path.stat().st_size),
-            'type': file_type,
-            'previewable': is_previewable(file_type)
-        })
+        if file_path.is_file():
+            lists.append({
+                'name': file_path.name, 
+                'size': transform_datasize(file_path.stat().st_size),
+                'isImage': is_image(file_path.name)
+            })
     return lists
 
 def delete_file_func(files_folder: Path, name: str) -> bool:
