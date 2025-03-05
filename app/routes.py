@@ -25,11 +25,12 @@ def handle_file(name):
 def get_files():
     """获取文件列表API"""
     files = []
-    for file_path in Path(files_folder):
-        files.append({
-            'name': file_path.name,
-            'size': transform_datasize(file_path.stat().st_size),
-        })
+    for file_path in Path(files_folder).iterdir():
+        if file_path.is_file():
+            files.append({
+                'name': file_path.name,
+                'size': transform_datasize(file_path.stat().st_size),
+            })
     return jsonify(files)
 
 @main_bp.route('/api/upload', methods=['POST'])
