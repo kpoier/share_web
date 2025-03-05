@@ -13,7 +13,7 @@
         <img src="{{ url_for('main.get_image', name=name) }}" alt="{{ name }}">
         <div class="image-controls">
             <a href="/">返回首页</a>
-            <a href="{{ url_for('main.download_file', name=name) }}">下载图片</a>
+            <a href="{{ url_for('main.handle_file', name=name) }}">下载图片</a>
         </div>
     </div>
 </body>

@@ -10,14 +10,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     // 创建一个文件名链接
                     const fileLink = document.createElement('a');
-                    fileLink.href = `/file/${file.name}`;
+                    fileLink.href = `/${file.name}`;
                     fileLink.textContent = file.name;
                     fileLink.classList.add('file-name');
-
-                    // 如果是图片，添加图片标识类
-                    if (file.isImage) {
-                        fileLink.classList.add('image-file');
-                    }
 
                     // 创建显示文件大小的元素
                     const fileSize = document.createElement('span');
@@ -26,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     // 创建删除按钮
                     const deleteButton = document.createElement('button');
-                    deleteButton.textContent = '删除';
+                    deleteButton.textContent = 'Delete';
                     deleteButton.classList.add('delete-button');
                     deleteButton.addEventListener('click', () => deleteFile(file.name));
 

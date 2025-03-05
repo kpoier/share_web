@@ -1,3 +1,4 @@
+/* 页面整体样式 */
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
@@ -6,200 +7,94 @@ body {
     text-align: center;
 }
 
+/* 主标题样式 */
 h1 {
     color: #333;
     font-size: 2.5em;
     margin-bottom: 20px;
 }
 
-/* 调整文件列表容器 */
-.file-list-container {
-    max-width: 800px;
-    /* 限制最大宽度 */
-    margin: 0 auto;
-    /* 居中显示 */
-    text-align: left;
-    /* 让内容左对齐 */
+/* 上传区域容器样式 */
+#upload {
+    margin-bottom: 30px;
 }
 
+/* 上传按钮样式 */
+#uploadButton {
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1em;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-bottom: 15px;
+}
+
+/* 上传按钮悬停状态 */
+#uploadButton:hover {
+    background-color: #0056b3;
+}
+
+/* 上传按钮点击状态 */
+#uploadButton:active {
+    background-color: #004494;
+}
+
+/* 文件列表容器样式 */
+.file-list-container {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+/* 文件列表样式 */
 .file-list {
     list-style-type: none;
     padding: 0;
 }
 
-/* 修改文件列表项的样式 */
+/* 文件列表项样式 */
 .file-list li {
     background-color: #fff;
     margin: 15px 0;
-    /* 增加间距 */
     padding: 20px;
-    /* 放大每项的间距 */
     border-radius: 10px;
-    /* 更大的圆角 */
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-    /* 更显眼的阴影 */
     display: flex;
     justify-content: space-between;
     font-size: 1.2em;
-    /* 放大字体 */
 }
 
+/* 文件名链接样式 */
 .file-name {
     flex: 1;
-    /* 文件名占据最大的空间 */
     text-decoration: none;
     color: #007BFF;
     font-weight: bold;
-    /* 加粗文件名 */
 }
 
+/* 文件名链接悬停状态 */
 .file-name:hover {
     text-decoration: underline;
 }
 
-.file-size,
-.file-modified {
+/* 文件大小标签样式 */
+.file-size {
     margin-left: 30px;
-    /* 增加文件大小和修改时间之间的间距 */
     color: #555;
     font-size: 1.1em;
-    /* 放大文件大小和修改时间的字体 */
 }
 
-/* 居中对齐文件信息 */
+/* 文件信息容器（包含文件名和大小）*/
 .file-info {
     display: flex;
     justify-content: space-between;
-    /* 分开每项内容 */
     width: 100%;
 }
 
-#uploadButton {
-    background-color: #007BFF;
-    /* 按钮背景颜色 */
-    color: #fff;
-    /* 按钮文字颜色 */
-    border: none;
-    /* 去掉默认边框 */
-    padding: 10px 20px;
-    /* 内边距 */
-    font-size: 1em;
-    /* 字体大小 */
-    border-radius: 5px;
-    /* 圆角 */
-    cursor: pointer;
-    /* 鼠标悬停时显示手型 */
-    transition: background-color 0.3s ease;
-    /* 背景颜色过渡效果 */
-    margin-bottom: 15px;
-}
-
-#uploadButton:hover {
-    background-color: #0056b3;
-    /* 鼠标悬停时的背景颜色 */
-}
-
-#uploadButton:active {
-    background-color: #004494;
-    /* 按下时的背景颜色 */
-}
-
-body.highlight {
-    position: relative;
-    background-color: #f4f4f4;
-}
-
-body.highlight::before {
-    content: "";
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(12, 12, 12, 0.3);
-    /* 调低透明度 */
-    -webkit-backdrop-filter: blur(5px);
-    /* 背景模糊效果 */
-    backdrop-filter: blur(5px);
-    /* 背景模糊效果 */
-    z-index: 999;
-    /* 确保模糊背景在弹窗下层 */
-}
-
-body.highlight::after {
-    content: "drop your file here";
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: rgba(92, 92, 92, 0.685);
-    /* 更深的背景颜色 */
-    color: #fff;
-    padding: 60px 80px;
-    /* 调整内边距以改变框框大小 */
-    border-radius: 15px;
-    /* 更大的圆角 */
-    font-size: 2.5em;
-    /* 更大的字体 */
-    text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    /* 添加阴影 */
-    z-index: 1000;
-    /* 确保弹窗在最上层 */
-    border: 2px dashed #fff;
-    /* 添加虚线边框 */
-}
-
-/* 文件类型图标样式 */
-.file-type-icon {
-    margin-right: 10px;
-    width: 24px;
-    height: 24px;
-    display: inline-block;
-    background-size: contain;
-    background-repeat: no-repeat;
-    vertical-align: middle;
-}
-
-.file-type-image {
-    background-image: url('/static/img/image-icon.png');
-}
-
-.file-type-text,
-.file-type-code {
-    background-image: url('/static/img/text-icon.png');
-}
-
-.file-type-pdf {
-    background-image: url('/static/img/pdf-icon.png');
-}
-
-.file-type-video {
-    background-image: url('/static/img/video-icon.png');
-}
-
-.file-type-audio {
-    background-image: url('/static/img/audio-icon.png');
-}
-
-.file-type-other {
-    background-image: url('/static/img/file-icon.png');
-}
-
-.download-button {
-    padding: 5px 10px;
-    background-color: #4CAF50;
-    color: white;
-    text-decoration: none;
-    border-radius: 4px;
-    margin-left: 15px;
-    font-size: 0.9em;
-}
-
-.download-button:hover {
-    background-color: #45a049;
-}
-
+/* 删除按钮样式 - 用于管理页面 */
 .delete-button {
     padding: 5px 10px;
     background-color: #f44336;
@@ -211,105 +106,50 @@ body.highlight::after {
     font-size: 0.9em;
 }
 
+/* 删除按钮悬停状态 */
 .delete-button:hover {
     background-color: #d32f2f;
 }
 
-/* 预览页面样式 */
-.preview-container {
-    max-width: 1200px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+/* 拖放高亮状态 - 页面遮罩 */
+body.highlight {
+    position: relative;
+    background-color: #f4f4f4;
 }
 
-.preview-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 15px;
-    margin-bottom: 20px;
-}
-
-.preview-actions {
-    display: flex;
-    gap: 10px;
-}
-
-.preview-actions a {
-    padding: 8px 16px;
-    text-decoration: none;
-    color: white;
-    border-radius: 4px;
-}
-
-.preview-actions .back {
-    background-color: #607D8B;
-}
-
-.preview-actions .download {
-    background-color: #4CAF50;
-}
-
-.preview-content {
-    min-height: 400px;
-    max-height: 80vh;
-    overflow: auto;
-}
-
-/* 预览内容样式 */
-.preview-image {
-    max-width: 100%;
-    max-height: 70vh;
-    display: block;
-    margin: 0 auto;
-    object-fit: contain;
-}
-
-.preview-text {
-    white-space: pre-wrap;
-    font-family: monospace;
-    padding: 15px;
-    background-color: #f5f5f5;
-    border-radius: 5px;
-    overflow: auto;
-}
-
-.preview-code {
-    white-space: pre;
-    font-family: 'Courier New', Courier, monospace;
-    padding: 15px;
-    background-color: #282c34;
-    color: #abb2bf;
-    border-radius: 5px;
-    overflow: auto;
-}
-
-.preview-pdf {
+/* 拖放高亮 - 背景遮罩 */
+body.highlight::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
-    height: 70vh;
+    height: 100%;
+    background-color: rgba(12, 12, 12, 0.3);
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
+    z-index: 999;
 }
 
-.preview-video {
-    width: 100%;
-    max-height: 70vh;
+/* 拖放高亮 - 提示文本 */
+body.highlight::after {
+    content: "drop your file here";
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(92, 92, 92, 0.685);
+    color: #fff;
+    padding: 60px 80px;
+    border-radius: 15px;
+    font-size: 2.5em;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    border: 2px dashed #fff;
 }
 
-.preview-audio {
-    width: 100%;
-    padding: 20px;
-}
-
-/* 图片文件标识 */
-.image-file::before {
-    content: "🖼️";
-    margin-right: 5px;
-}
-
-/* 图片预览页样式 */
+/* 图片预览容器 - 全屏黑色背景 */
 .image-preview-container {
     display: flex;
     justify-content: center;
@@ -321,12 +161,14 @@ body.highlight::after {
     position: relative;
 }
 
+/* 预览图片样式 - 适应屏幕 */
 .image-preview-container img {
     max-width: 100%;
     max-height: 100vh;
     object-fit: contain;
 }
 
+/* 图片预览页面的控制按钮容器 */
 .image-controls {
     position: fixed;
     top: 15px;
@@ -337,12 +179,14 @@ body.highlight::after {
     z-index: 100;
 }
 
+/* 图片预览页面的控制按钮链接 */
 .image-controls a {
     color: white;
     text-decoration: none;
     margin: 0 10px;
 }
 
+/* 图片预览页面的控制按钮链接悬停状态 */
 .image-controls a:hover {
     text-decoration: underline;
 }
