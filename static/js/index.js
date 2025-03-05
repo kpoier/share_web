@@ -1,92 +1,76 @@
 document.addEventListener('DOMContentLoaded', () => {
     const uploadButton = document.getElementById('uploadButton');
     const fileInput = document.getElementById('fileInput');
+    const events = {
+        preventDefault: ['dragenter', 'dragover', 'dragleave', 'drop'],
+        highlight: ['dragenter', 'dragover'],
+        unhighlight: ['dragleave', 'drop']
+    };
 
-    // 防止默认行为
-    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-        document.addEventListener(eventName, preventDefaults, false);
+    // 防止拖放的默认行为
+    events.preventDefault.forEach(eventName => {
+        document.addEventListener(eventName, e => {
+            e.preventDefault();
+            e.stopPropagation();
+        }, false);
     });
 
-    function preventDefaults(e) {
-        e.preventDefault();
-        e.stopPropagation();
-    }
-
-    // 添加拖放样式
-    ['dragenter', 'dragover'].forEach(eventName => {
+    // 拖放区域高亮
+    events.highlight.forEach(eventName => {
         document.addEventListener(eventName, () => document.body.classList.add('highlight'), false);
     });
-
-    ['dragleave', 'drop'].forEach(eventName => {
+    events.unhighlight.forEach(eventName => {
         document.addEventListener(eventName, () => document.body.classList.remove('highlight'), false);
     });
 
     // 处理文件拖放
-    document.addEventListener('drop', handleDrop, false);
+    document.addEventListener('drop', (e) => {
+        [...e.dataTransfer.files].forEach(uploadFile);
+    }, false);
 
-    function handleDrop(e) {
-        const dt = e.dataTransfer;
-        const files = dt.files;
-
-        handleFiles(files);
-    }
-
-    // 处理文件选择按钮点击事件
-    uploadButton.addEventListener('click', () => {
-        fileInput.click();
-    });
-
-    // 处理文件选择事件
+    // 文件选择按钮
+    uploadButton.addEventListener('click', () => fileInput.click());
     fileInput.addEventListener('change', (e) => {
-        const files = e.target.files;
-        handleFiles(files);
+        [...e.target.files].forEach(uploadFile);
     });
 
-    function handleFiles(files) {
-        ([...files]).forEach(uploadFile);
-    }
-
+    // 上传文件
     function uploadFile(file) {
-        const url = 'api/upload';
         const formData = new FormData();
-        formData.append('file', file);
+        formData.append('uploaded_file', file);
 
-        fetch(url, {
+        fetch('/api/upload', {
             method: 'POST',
             body: formData
         })
-        .then(response => response.json())
-        .then(data => {
-            console.log(data);
-            // 重新加载文件列表
-            loadFileList();
-        })
-        .catch(error => {
-            console.error('Error uploading file:', error);
-        });
+            .then(response => response.json())
+            .then(() => loadFileList())
+            .catch(error => console.error('上传错误:', error));
     }
 
+    // 加载文件列表
     function loadFileList() {
         fetch('/api/get_files')
             .then(response => response.json())
-            .then(fileList => {
+            .then(files => {
                 const fileListElement = document.getElementById('file-list');
-                fileListElement.innerHTML = ''; // 清空现有列表
-                fileList.forEach(file => {
+                fileListElement.innerHTML = '';
+
+                files.forEach(file => {
                     const listItem = document.createElement('li');
 
-                    // 创建一个文件名链接
+                    // 文件链接
                     const fileLink = document.createElement('a');
-                    fileLink.href = `/share/${file.name}`;
+                    fileLink.href = `/${file.name}`;
                     fileLink.textContent = file.name;
                     fileLink.classList.add('file-name');
 
-                    // 创建显示文件大小的元素
+                    // 文件大小
                     const fileSize = document.createElement('span');
                     fileSize.classList.add('file-size');
-                    fileSize.textContent = `${file.size}`;
+                    fileSize.textContent = file.size;
 
-                    // 将文件信息包含在一起
+                    // 包装信息
                     const fileInfo = document.createElement('div');
                     fileInfo.classList.add('file-info');
                     fileInfo.appendChild(fileLink);
@@ -96,9 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     fileListElement.appendChild(listItem);
                 });
             })
-            .catch(error => {
-                console.error('Error loading file list:', error);
-            });
+            .catch(error => console.error('加载文件列表错误:', error));
     }
 
     // 初始加载文件列表
