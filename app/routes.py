@@ -2,28 +2,27 @@ from flask import Blueprint, render_template, send_from_directory, request, json
 from pathlib import Path
 from .function import *
 
-# 创建蓝图
 main_bp = Blueprint('main', __name__) 
 files_folder = current_app.config.get('FILES_FOLDER', 'files')
 
 @main_bp.route('/')
 def index():
-    """首页路由"""
+    """index page"""
     return render_template('index.html')
 
 @main_bp.route('/manage')
 def manage():
-    """文件管理页面"""
+    """manage page"""
     return render_template('manage.html')
 
 @main_bp.route('/<name>')
 def handle_file(name):
-    """预览图片或下载文件"""
+    """view picture or save file"""
     return send_from_directory(files_folder, name)
 
 @main_bp.route('/api/get_files')
 def get_files():
-    """获取文件列表API"""
+    """git files list"""
     files = []
     for file_path in Path(files_folder).iterdir():
         if file_path.is_file():
@@ -35,7 +34,7 @@ def get_files():
 
 @main_bp.route('/api/upload', methods=['POST'])
 def upload_file():
-    """处理文件上传"""
+    """processes file uploads"""
     if not (file := request.files.get('uploaded_file')):
         return jsonify({'error': 'No selected file'}), 400
     file.save(Path(files_folder) / file.filename)
@@ -43,7 +42,12 @@ def upload_file():
 
 @main_bp.route('/api/delete', methods=['POST'])
 def delete_file():
-    """删除文件"""
+    """delete file"""
     if delete_file_func(files_folder, request.json.get('name')):
         return jsonify({'success': 'Delete success'}), 200
     return jsonify({'error': 'Delete failed'}), 400
+
+@main_bp.route('/favicon.ico')
+def favicon():
+    """processes requests for favicon.ico"""
+    return send_from_directory('static', 'img/favicon.ico')

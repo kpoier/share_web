@@ -2,7 +2,7 @@ services:
   app:
     build: .
     ports:
-      - "5000:5000"
+      - "8050:8050"
     volumes:
       - ./files:/app/files
     environment:
