@@ -13,8 +13,8 @@
 
 ## 技术栈
 
-- **后端**: Python 3.11, Flask 2.0.1
-- **前端**: HTML5, CSS3, JavaScript
+- **后端**: Python, Flask
+- **前端**: HTML, CSS, JavaScript
 - **容器化**: Docker
 
 ## 安装与运行
