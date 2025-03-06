@@ -1,5 +1,7 @@
 # 文件分享网站
 
+[![English](https://img.shields.io/badge/English-Click%20to%20switch-blue.svg)](README.md)
+
 一个简洁高效的文件分享Web应用，支持拖放上传、文件管理和快速分享。
 
 ## 功能特点
