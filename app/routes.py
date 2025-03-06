@@ -46,8 +46,3 @@ def delete_file():
     if delete_file_func(files_folder, request.json.get('name')):
         return jsonify({'success': 'Delete success'}), 200
     return jsonify({'error': 'Delete failed'}), 400
-
-@main_bp.route('/favicon.ico')
-def favicon():
-    """processes requests for favicon.ico"""
-    return send_from_directory('static', 'img/favicon.ico')
