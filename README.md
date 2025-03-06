@@ -42,7 +42,7 @@
 
 2. 克隆仓库
    ```bash
-   git clone https://github.com/你的用户名/share_website.git
+   git clone https://github.com/kpoier/share_web
    cd share_website
    ```
 
