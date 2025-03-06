@@ -1,24 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>File Sharing</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
-    <link rel="icon" href="{{ url_for('static', filename='img/favicon.ico') }}" type="image/x-icon">
-</head>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/index.css') }}"
+    />
+    <link
+      rel="icon"
+      href="{{ url_for('static', filename='img/favicon.ico') }}"
+      type="image/x-icon"
+    />
+  </head>
 
-<body>
+  <body>
     <h1>File Sharing</h1>
     <div id="upload">
-        <button id="uploadButton">Upload File</button>
-        <input type="file" id="fileInput" style="display: none;">
+      <button id="uploadButton">Upload File</button>
+      <input type="file" id="fileInput" style="display: none" />
     </div>
     <div class="file-list-container">
-        <ul class="file-list" id="file-list"></ul>
+      <ul class="file-list" id="file-list"></ul>
     </div>
     <script src="{{ url_for('static', filename='js/index.js') }}"></script>
-</body>
-
+  </body>
 </html>
