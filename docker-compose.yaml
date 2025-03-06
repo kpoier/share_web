@@ -2,8 +2,8 @@ services:
   app:
     build: .
     ports:
-      - "10001:10001"
+      - "5000:5000"
     volumes:
-      - ./mydata:/files
+      - ./files:/app/files
     environment:
       - FLASK_ENV=development
