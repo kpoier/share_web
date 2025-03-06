@@ -5,6 +5,8 @@ body {
     color: #333;
     padding: 20px;
     text-align: center;
+    max-width: 100%;
+    overflow-x: hidden; /* 防止水平滚动 */
 }
 
 /* 主标题样式 */
@@ -12,6 +14,7 @@ h1 {
     color: #333;
     font-size: 2.5em;
     margin-bottom: 20px;
+    word-wrap: break-word; /* 允许长单词换行 */
 }
 
 /* 调整文件列表容器 */
@@ -19,6 +22,8 @@ h1 {
     max-width: 800px;    /* 限制最大宽度 */
     margin: 0 auto;      /* 居中显示 */
     text-align: left;    /* 让内容左对齐 */
+    width: 95%; /* 确保在移动设备上有边距 */
+    overflow: hidden; /* 防止内容溢出 */
 }
 
 /* 文件列表样式 */
@@ -36,7 +41,10 @@ h1 {
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15); /* 更显眼的阴影 */
     display: flex;
     justify-content: space-between;
+    align-items: center; /* 垂直居中对齐所有项目 */
     font-size: 1.2em;    /* 放大字体 */
+    word-break: break-word; /* 确保长文本可以正常换行 */
+    overflow-wrap: break-word; /* 确保长单词可以换行 */
 }
 
 /* 文件名链接样式 */
@@ -45,6 +53,10 @@ h1 {
     text-decoration: none;
     color: #007BFF;
     font-weight: bold;   /* 加粗文件名 */
+    word-break: break-word; /* 确保长文件名可以换行 */
+    overflow-wrap: break-word;
+    max-width: 100%;
+    display: inline-block; /* 使得文本能够正确换行 */
 }
 
 /* 文件名链接悬停状态 */
@@ -57,13 +69,18 @@ h1 {
     margin-left: 30px;   /* 增加文件大小和修改时间之间的间距 */
     color: #555;
     font-size: 1.1em;    /* 放大文件大小和修改时间的字体 */
+    display: flex;       /* 使用flex布局 */
+    align-items: center; /* 垂直居中对齐文本 */
+    height: 100%;        /* 占满父容器高度 */
 }
 
 /* 居中对齐文件信息 */
 .file-info {
     display: flex;
     justify-content: space-between; /* 分开每项内容 */
+    align-items: center; /* 垂直居中对齐内容 */
     width: 100%;
+    flex-wrap: wrap; /* 允许项目在需要时换行 */
 }
 
 #uploadButton {
@@ -121,4 +138,43 @@ body.highlight::after {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);  /* 添加阴影 */
     z-index: 1000;                             /* 确保弹窗在最上层 */
     border: 2px dashed #fff;                   /* 添加虚线边框 */
+}
+
+/* 响应式设计 - 移动设备 */
+@media (max-width: 768px) {
+    .file-list li {
+        padding: 15px; /* 减小内边距 */
+        font-size: 1em; /* 减小字体大小 */
+    }
+    
+    .file-size,
+    .file-modified {
+        margin-left: 0; /* 移除左边距 */
+        margin-top: 5px; /* 添加顶部边距 */
+    }
+    
+    #uploadButton {
+        padding: 8px 16px; /* 调整按钮大小 */
+    }
+    
+    body.highlight::after {
+        padding: 30px 40px; /* 减小拖放提示框的大小 */
+        font-size: 1.8em; /* 减小拖放提示的字体大小 */
+    }
+}
+
+/* 超小屏幕设备 */
+@media (max-width: 480px) {
+    body {
+        padding: 10px; /* 减小页面边距 */
+    }
+    
+    h1 {
+        font-size: 2em; /* 减小标题大小 */
+    }
+    
+    .file-list li {
+        padding: 10px; /* 进一步减小内边距 */
+        font-size: 0.9em; /* 进一步减小字体大小 */
+    }
 }
