@@ -1,22 +1,20 @@
 # 文件分享网站
 
-[![English](https://img.shields.io/badge/English-Click%20to%20switch-blue.svg)](README.en.md)
-
-一个简洁高效的文件分享 Web 应用，支持拖放上传、文件管理和快速分享。
+一个简洁高效的文件分享Web应用，支持拖放上传、文件管理和快速分享。
 
 ## 功能特点
 
-- ✨ 拖放式文件上传
-- 📊 实时上传进度显示
-- 📱 响应式设计，适配各种设备
 - 🗂️ 文件管理界面
 - 🔗 简单的文件分享链接
-- 🐳 Docker 支持，便于部署
+- 📱 响应式设计，适配各种设备
+- ✨ 拖放式文件上传
+- 📊 实时上传进度显示
+- 🐳 Docker支持，便于部署
 
 ## 技术栈
 
-- **后端**: Python 3.11, Flask 2.0.1
-- **前端**: HTML5, CSS3, JavaScript
+- **后端**: Python, Flask
+- **前端**: HTML, CSS, JavaScript
 - **容器化**: Docker
 
 ## 安装与运行
@@ -26,14 +24,12 @@
 1. 确保已安装 [Docker](https://www.docker.com/) 和 Docker Compose
 
 2. 克隆仓库
-
    ```bash
    git clone https://github.com/kpoier/share_web
    cd share_website
    ```
 
 3. 启动应用
-
    ```bash
    docker-compose up -d
    ```
@@ -42,23 +38,20 @@
 
 ### 方法二: 本地运行
 
-1. 确保已安装 Python 3.11
+1. 确保已安装 Python
 
 2. 克隆仓库
-
    ```bash
    git clone https://github.com/kpoier/share_web
    cd share_website
    ```
 
 3. 安装依赖
-
    ```bash
    pip install Flask
    ```
 
 4. 运行应用
-
    ```bash
    python run.py
    ```
@@ -88,13 +81,11 @@ share_website/
 
 ## 使用说明
 
-1. **上传文件**:
-
+1. **上传文件**: 
    - 点击"Upload File"按钮选择文件
    - 或直接拖放文件到浏览器窗口
 
 2. **查看文件**:
-
    - 所有上传的文件会显示在主页列表中
    - 点击文件名可下载或查看文件
 

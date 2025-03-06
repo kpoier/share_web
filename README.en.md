@@ -26,14 +26,12 @@ A simple and efficient file sharing web application that supports drag-and-drop 
 1. Make sure you have [Docker](https://www.docker.com/) and Docker Compose installed
 
 2. Clone the repository
-
    ```bash
    git clone https://github.com/kpoier/share_web
    cd share_website
    ```
 
 3. Start the application
-
    ```bash
    docker-compose up -d
    ```
@@ -45,20 +43,17 @@ A simple and efficient file sharing web application that supports drag-and-drop 
 1. Make sure you have Python installed
 
 2. Clone the repository
-
    ```bash
    git clone https://github.com/kpoier/share_web
    cd share_website
    ```
 
 3. Install dependencies
-
    ```bash
    pip install Flask
    ```
 
 4. Run the application
-
    ```bash
    python run.py
    ```
@@ -89,12 +84,10 @@ share_website/
 ## Usage Guide
 
 1. **Upload Files**:
-
    - Click the "Upload File" button to select files
    - Or drag and drop files directly onto the browser window
 
 2. **View Files**:
-
    - All uploaded files are displayed in the main page list
    - Click the filename to download or view the file
 
