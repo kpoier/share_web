@@ -140,87 +140,14 @@ body.highlight::after {
     border: 2px dashed #fff;                   /* 添加虚线边框 */
 }
 
-/* 上传进度条容器 */
-.upload-progress-container {
-    width: 100%;
-    background-color: #e0e0e0;
-    border-radius: 5px;
-    margin: 10px 0;
-    height: 20px;
-    position: relative;
-    overflow: hidden;
-    display: none; /* 默认隐藏 */
+#github a {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #333;
+    font-size: 1em;
+    text-decoration: none;
+    border-bottom: 1px solid #333;
 }
 
-/* 上传进度条 */
-.upload-progress-bar {
-    height: 100%;
-    background-color: #4CAF50;
-    border-radius: 5px;
-    width: 0%;
-    transition: width 0.3s ease;
-    text-align: center;
-    line-height: 20px;
-    color: white;
-    position: relative;
-}
-
-/* 文件上传状态显示 */
-.upload-status {
-    margin: 10px 0;
-    padding: 10px;
-    border-radius: 5px;
-    display: none;
-    text-align: center;
-}
-
-.upload-success {
-    background-color: #dff0d8;
-    color: #3c763d;
-    border: 1px solid #d6e9c6;
-}
-
-.upload-error {
-    background-color: #f2dede;
-    color: #a94442;
-    border: 1px solid #ebccd1;
-}
-
-/* 响应式设计 - 移动设备 */
-@media (max-width: 768px) {
-    .file-list li {
-        padding: 15px; /* 减小内边距 */
-        font-size: 1em; /* 减小字体大小 */
-    }
-    
-    .file-size,
-    .file-modified {
-        margin-left: 0; /* 移除左边距 */
-        margin-top: 5px; /* 添加顶部边距 */
-    }
-    
-    #uploadButton {
-        padding: 8px 16px; /* 调整按钮大小 */
-    }
-    
-    body.highlight::after {
-        padding: 30px 40px; /* 减小拖放提示框的大小 */
-        font-size: 1.8em; /* 减小拖放提示的字体大小 */
-    }
-}
-
-/* 超小屏幕设备 */
-@media (max-width: 480px) {
-    body {
-        padding: 10px; /* 减小页面边距 */
-    }
-    
-    h1 {
-        font-size: 2em; /* 减小标题大小 */
-    }
-    
-    .file-list li {
-        padding: 10px; /* 进一步减小内边距 */
-        font-size: 0.9em; /* 进一步减小字体大小 */
-    }
-}
