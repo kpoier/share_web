@@ -28,7 +28,7 @@
 2. 克隆仓库
    ```bash
    git clone https://github.com/kpoier/share_web
-   cd share_website
+   cd share_web
    ```
 
 3. 启动应用
