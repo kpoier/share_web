@@ -83,7 +83,8 @@ h1 {
     flex-wrap: wrap; /* 允许项目在需要时换行 */
 }
 
-#uploadButton {
+#uploadFoldersButton,
+#uploadFilesButton {
     background-color: #007BFF; /* 按钮背景颜色 */
     color: #fff;               /* 按钮文字颜色 */
     border: none;              /* 去掉默认边框 */
@@ -95,13 +96,31 @@ h1 {
     margin-bottom: 15px;
 }
 
-#uploadButton:hover {
+#uploadFoldersButton:hover,
+#uploadFilesButton:hover {
     background-color: #0056b3; /* 鼠标悬停时的背景颜色 */
 }
 
-#uploadButton:active {
+#uploadFoldersButton:active,
+#uploadFilesButton:active {
     background-color: #004494; /* 按下时的背景颜色 */
 }
+
+.upload-progress-bar {
+    height: 20px;
+    width: 0;
+    background-color: #4caf50;
+    transition: width 0.3s;
+    position: relative;
+  }
+  
+  .upload-progress-bar span {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+  }
+  
 
 body.highlight {
     position: relative;
