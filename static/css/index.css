@@ -1,133 +1,22 @@
-/* 页面整体样式 */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    color: #333;
-    padding: 20px;
-    text-align: center;
-    max-width: 100%;
-    overflow-x: hidden; /* 防止水平滚动 */
+/* 自定義按鈕 */
+.fixed-button {
+    width: 200px; /* 固定宽度 */
+    text-align: center; /* 确保文字居中 */
 }
 
-/* 主标题样式 */
-h1 {
-    color: #333;
-    font-size: 2.5em;
-    margin-bottom: 20px;
-    word-wrap: break-word; /* 允许长单词换行 */
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
 }
 
-/* 调整文件列表容器 */
-.file-list-container {
-    max-width: 800px;    /* 限制最大宽度 */
-    margin: 0 auto;      /* 居中显示 */
-    text-align: left;    /* 让内容左对齐 */
-    width: 95%; /* 确保在移动设备上有边距 */
-    overflow: hidden; /* 防止内容溢出 */
-}
-
-/* 文件列表样式 */
-.file-list {
-    list-style-type: none;
-    padding: 0;
-}
-
-/* 文件列表项样式 */
-.file-list li {
-    background-color: #fff;
-    margin: 15px 0;      /* 增加间距 */
-    padding: 20px;       /* 放大每项的间距 */
-    border-radius: 10px; /* 更大的圆角 */
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15); /* 更显眼的阴影 */
-    display: flex;
-    justify-content: space-between;
-    align-items: center; /* 垂直居中对齐所有项目 */
-    font-size: 1.2em;    /* 放大字体 */
-    word-break: break-word; /* 确保长文本可以正常换行 */
-    overflow-wrap: break-word; /* 确保长单词可以换行 */
-}
-
-/* 文件名链接样式 */
-.file-name {
-    flex: 1;             /* 文件名占据最大的空间 */
-    text-decoration: none;
-    color: #007BFF;
-    font-weight: bold;   /* 加粗文件名 */
-    word-break: break-word; /* 确保长文件名可以换行 */
-    overflow-wrap: break-word;
-    max-width: 100%;
-    display: inline-block; /* 使得文本能够正确换行 */
-}
-
-/* 文件名链接悬停状态 */
-.file-name:hover {
-    text-decoration: underline;
-}
-
-.file-size,
-.file-modified {
-    margin-left: 30px;   /* 增加文件大小和修改时间之间的间距 */
-    color: #555;
-    font-size: 1.1em;    /* 放大文件大小和修改时间的字体 */
-    display: flex;       /* 使用flex布局 */
-    align-items: center; /* 垂直居中对齐文本 */
-    height: 100%;        /* 占满父容器高度 */
-}
-
-/* 居中对齐文件信息 */
-.file-info {
-    display: flex;
-    justify-content: space-between; /* 分开每项内容 */
-    align-items: center; /* 垂直居中对齐内容 */
-    width: 100%;
-    flex-wrap: wrap; /* 允许项目在需要时换行 */
-}
-
-#uploadFoldersButton,
-#uploadFilesButton {
-    background-color: #007BFF; /* 按钮背景颜色 */
-    color: #fff;               /* 按钮文字颜色 */
-    border: none;              /* 去掉默认边框 */
-    padding: 10px 20px;        /* 内边距 */
-    font-size: 1em;            /* 字体大小 */
-    border-radius: 5px;        /* 圆角 */
-    cursor: pointer;           /* 鼠标悬停时显示手型 */
-    transition: background-color 0.3s ease; /* 背景颜色过渡效果 */
-    margin-bottom: 15px;
-}
-
-#uploadFoldersButton:hover,
-#uploadFilesButton:hover {
-    background-color: #0056b3; /* 鼠标悬停时的背景颜色 */
-}
-
-#uploadFoldersButton:active,
-#uploadFilesButton:active {
-    background-color: #004494; /* 按下时的背景颜色 */
-}
-
-.upload-progress-bar {
-    height: 20px;
-    width: 0;
-    background-color: #4caf50;
-    transition: width 0.3s;
-    position: relative;
-  }
-  
-  .upload-progress-bar span {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    color: white;
-  }
-  
-
-body.highlight {
-    position: relative;
-    background-color: #f4f4f4;
-}
-
-/* 拖放高亮 - 背景遮罩 */
+/* 拖放高亮样式 */
 body.highlight::before {
     content: "";
     position: fixed;
@@ -135,38 +24,25 @@ body.highlight::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(12, 12, 12, 0.3); /* 调低透明度 */
-    -webkit-backdrop-filter: blur(5px);       /* 背景模糊效果 */
-    backdrop-filter: blur(5px);               /* 背景模糊效果 */
-    z-index: 999;                             /* 确保模糊背景在弹窗下层 */
+    background-color: rgba(12, 12, 12, 0.3);
+    z-index: 999;
+    pointer-events: none; /* 防止鼠标事件干扰 */
 }
 
-/* 拖放高亮 - 提示文本 */
 body.highlight::after {
     content: "drop your file here";
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: rgba(92, 92, 92, 0.685); /* 更深的背景颜色 */
+    background-color: rgba(92, 92, 92, 0.685);
     color: #fff;
-    padding: 60px 80px;                        /* 调整内边距以改变框框大小 */
-    border-radius: 15px;                       /* 更大的圆角 */
-    font-size: 2.5em;                          /* 更大的字体 */
+    padding: 60px 80px;
+    border-radius: 15px;
+    font-size: 2.5em;
     text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);  /* 添加阴影 */
-    z-index: 1000;                             /* 确保弹窗在最上层 */
-    border: 2px dashed #fff;                   /* 添加虚线边框 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    border: 2px dashed #fff;
+    pointer-events: none; /* 防止鼠标事件干扰 */
 }
-
-#github a {
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    color: #333;
-    font-size: 1em;
-    text-decoration: none;
-    border-bottom: 1px solid #333;
-}
-

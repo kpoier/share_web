@@ -44,7 +44,6 @@ export function setupDragAndDrop(uploadFile) {
     return p;
   }
 
-  // traverseFileTree 會遞迴抓出所有檔案（保留相對路徑）
   function traverseFileTree(item, path = "") {
     if (item.isFile) {
       item.file((file) => {
