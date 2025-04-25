@@ -1,3 +1,36 @@
+@keyframes slideInFromLeft {
+    0% {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+    80% {
+      transform: translateX(10%);
+      opacity: 1;
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+  
+  .file-list li {
+      /* 原本的樣式保持 */
+      background-color: #fff;
+      margin: 15px 0;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 1.2em;
+      word-break: break-word;
+      overflow-wrap: break-word;
+  
+      /* 加入動畫效果 */
+      animation: slideInFromLeft 0.6s ease-out both;
+  }
+  
+
 .file-list-container {
     max-width: clamp(300px, 80vw, 800px);
     margin: 0 auto;
@@ -9,20 +42,6 @@
 .file-list {
     list-style-type: none;
     padding: 0;
-}
-
-.file-list li {
-    background-color: #fff;
-    margin: 15px 0;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 1.2em;
-    word-break: break-word;
-    overflow-wrap: break-word;
 }
 
 /* file outlay */
