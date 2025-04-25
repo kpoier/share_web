@@ -7,14 +7,14 @@ export function setupFileInput(uploadFile) {
     uploadFilesButton.addEventListener("click", () => fileInput.click());
     uploadFoldersButton.addEventListener("click", () => folderInput.click());
   
-    // 多檔案上傳
+    // multiple file input
     fileInput.addEventListener("change", e => {
       const basePath = getCurrentPath();
       Array.from(e.target.files)
            .forEach(file => uploadFile(file, basePath));
     });
   
-    // 資料夾上傳
+    // upload folder
     folderInput.addEventListener("change", e => {
       const basePath = getCurrentPath();
       Array.from(e.target.files).forEach(file => {

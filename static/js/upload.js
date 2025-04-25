@@ -1,31 +1,31 @@
 import { loadFileList } from "./file_list.js";
 
 export function createProgressBar(file) {
-    // 创建进度条容器
+    // create progress container
     const progressContainer = document.createElement("div");
     progressContainer.className = "upload-progress-container";
     progressContainer.style.display = "block";
 
-    // 创建文件名显示
+    // create file name display
     const fileNameDiv = document.createElement("div");
-    fileNameDiv.textContent = `正在上传: ${file.name}`;
+    fileNameDiv.textContent = `Uploading: ${file.name}`;
     fileNameDiv.style.marginBottom = "5px";
 
-    // 创建进度条
+    // create progress bar
     const progressBar = document.createElement("div");
     progressBar.className = "upload-progress-bar";
 
-    // 创建进度百分比显示
+    // create progress text
     const progressText = document.createElement("span");
     progressText.textContent = "0%";
     progressBar.appendChild(progressText);
     progressContainer.appendChild(progressBar);
 
-    // 创建状态显示区域
+    // create status message
     const statusDiv = document.createElement("div");
     statusDiv.className = "upload-status";
 
-    // 将所有元素添加到上传区域
+    // add elements to the container
     const uploadDiv = document.getElementById("upload");
     uploadDiv.appendChild(fileNameDiv);
     uploadDiv.appendChild(progressContainer);
@@ -46,7 +46,7 @@ export function createProgressBar(file) {
         statusDiv.textContent = message;
         if (success) {
           statusDiv.className = "upload-status upload-success";
-          // 2秒后隐藏成功消息
+          // after 2 seconds, remove the status message
           setTimeout(() => {
             statusDiv.style.display = "none";
             fileNameDiv.remove();
