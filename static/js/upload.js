@@ -1,62 +1,44 @@
 import { loadFileList } from "./file_list.js";
 
 export function createProgressBar(file) {
-    // create progress container
-    const progressContainer = document.createElement("div");
-    progressContainer.className = "upload-progress-container";
-    progressContainer.style.display = "block";
+  // 创建进度条容器
+  const progressContainer = document.createElement("div");
+  progressContainer.className = "upload-progress-container";
+  progressContainer.style.display = "block";
 
-    // create file name display
-    const fileNameDiv = document.createElement("div");
-    fileNameDiv.textContent = `Uploading: ${file.name}`;
-    fileNameDiv.style.marginBottom = "5px";
+  // 创建进度条
+  const progressBar = document.createElement("div");
+  progressBar.className = "upload-progress-bar";
 
-    // create progress bar
-    const progressBar = document.createElement("div");
-    progressBar.className = "upload-progress-bar";
+  // 创建文件名（放到进度条容器中）
+  const progressText = document.createElement("span");
+  progressText.textContent = file.name; // 显示文件名
+  progressText.className = "upload-progress-text";
 
-    // create progress text
-    const progressText = document.createElement("span");
-    progressText.textContent = "0%";
-    progressBar.appendChild(progressText);
-    progressContainer.appendChild(progressBar);
+  // 将文件名和进度条添加到容器
+  progressContainer.appendChild(progressText);
+  progressContainer.appendChild(progressBar);
 
-    // create status message
-    const statusDiv = document.createElement("div");
-    statusDiv.className = "upload-status";
+  // 添加到上传区域
+  const uploadDiv = document.getElementById("upload");
+  uploadDiv.appendChild(progressContainer);
 
-    // add elements to the container
-    const uploadDiv = document.getElementById("upload");
-    uploadDiv.appendChild(fileNameDiv);
-    uploadDiv.appendChild(progressContainer);
-    uploadDiv.appendChild(statusDiv);
-
-    return {
+  return {
       container: progressContainer,
       bar: progressBar,
-      status: statusDiv,
       text: progressText,
       updateProgress: (percent) => {
-        progressBar.style.width = `${percent}%`;
-        progressText.textContent = `${percent}%`;
+          progressBar.style.width = `${percent}%`; // 更新进度条宽度
       },
       complete: (success, message) => {
-        progressContainer.style.display = "none";
-        statusDiv.style.display = "block";
-        statusDiv.textContent = message;
-        if (success) {
-          statusDiv.className = "upload-status upload-success";
-          // after 2 seconds, remove the status message
-          setTimeout(() => {
-            statusDiv.style.display = "none";
-            fileNameDiv.remove();
-          }, 2000);
-        } else {
-          statusDiv.className = "upload-status upload-error";
-        }
+          if (success) {
+              progressBar.style.backgroundColor = "#4caf50"; // 成功时绿色
+          } else {
+              progressBar.style.backgroundColor = "#f44336"; // 失败时红色
+          }
       },
-    };
-  }
+  };
+}
   
   export function uploadFile(file, path = "") {
     const formData = new FormData();

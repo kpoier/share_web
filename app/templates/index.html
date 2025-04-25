@@ -7,13 +7,14 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/button.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/files.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/upload.css') }}">
     <link rel="icon" href="{{ url_for('static', filename='img/favicon.ico') }}" type="image/x-icon">
   </head>
 
   <body>
     <h1>File Sharing</h1>
-
-    <div id="upload" class="button-container">
+    <div  id="upload"></div>
+    <div class="button-container">
       <button id="uploadFilesButton" class="button">Upload Files</button>
       <button id="uploadFoldersButton" class="button">Upload Folders</button>
       <input type="file" id="fileInput" style="display: none" multiple />
