@@ -1,22 +1,25 @@
-/* 自定義按鈕 */
-.fixed-button {
-    width: 200px; /* 固定宽度 */
-    text-align: center; /* 确保文字居中 */
+/* header */
+h1 {
+    color: #000000;
+    font-size: clamp(2rem, 4vw, 3rem);
+    text-align: center;
+    margin-bottom: auto;
 }
 
-@keyframes fadeOut {
-    0% {
-        opacity: 1;
-    }
-    90% {
-        opacity: 1;
-    }
-    100% {
-        opacity: 0;
-    }
+/* flash message */
+.flash {
+    color: #325fc0;
+    font-size: clamp(0.5rem, 2vw, 1rem);
+    text-align: center;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
 }
 
-/* 拖放高亮样式 */
+/* hightlight */
+body.highlight {
+    position: relative;
+    background-color: #f4f4f4;
+}
 body.highlight::before {
     content: "";
     position: fixed;
@@ -24,25 +27,39 @@ body.highlight::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(12, 12, 12, 0.3);
-    z-index: 999;
-    pointer-events: none; /* 防止鼠标事件干扰 */
+    background-color: rgba(12, 12, 12, 0.3); /* 调低透明度 */
+    -webkit-backdrop-filter: blur(5px);       /* 背景模糊效果 */
+    backdrop-filter: blur(5px);               /* 背景模糊效果 */
+    z-index: 999;                             /* 确保模糊背景在弹窗下层 */
 }
-
 body.highlight::after {
     content: "drop your file here";
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: rgba(92, 92, 92, 0.685);
+    background-color: rgba(92, 92, 92, 0.685); /* 更深的背景颜色 */
     color: #fff;
-    padding: 60px 80px;
-    border-radius: 15px;
-    font-size: 2.5em;
+    padding: 60px 80px;                        /* 调整内边距以改变框框大小 */
+    border-radius: 15px;                       /* 更大的圆角 */
+    font-size: 2.5em;                          /* 更大的字体 */
     text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    z-index: 1000;
-    border: 2px dashed #fff;
-    pointer-events: none; /* 防止鼠标事件干扰 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);  /* 添加阴影 */
+    z-index: 1000;                             /* 确保弹窗在最上层 */
+    border: 2px dashed #fff;                   /* 添加虚线边框 */
+}
+
+/* github outlay */
+#github {
+    color: #000000;
+    font-size: clamp(0.1rem, 2vw, 0.8rem);
+    text-decoration: none;
+    bottom: 0;
+    position: fixed;
+    text-align: center;
+    width: 100%;
+}
+#github:hover {
+    color: #007BFF;
+    text-decoration: underline;
 }

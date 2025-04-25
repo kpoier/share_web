@@ -1,3 +1,4 @@
+from urllib.parse import unquote
 from flask import Blueprint, render_template, send_from_directory, request, jsonify, current_app
 from werkzeug.utils import secure_filename
 from pathlib import Path
@@ -41,6 +42,7 @@ json_response = {
 def get_files():
     """get files list in a given folder"""
     path = request.args.get('path', '')
+    path = unquote(path)
     target_path = Path(files_folder) / path
 
     if not target_path.exists() or not target_path.is_dir():

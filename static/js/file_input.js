@@ -18,7 +18,7 @@ export function setupFileInput(uploadFile) {
     folderInput.addEventListener("change", e => {
       const basePath = getCurrentPath();
       Array.from(e.target.files).forEach(file => {
-        // 處理相對路徑 (保留子資料夾結構)
+        // process webkitRelativePath
         let relativePath = file.webkitRelativePath || "";
         if (relativePath) {
           const segs = relativePath.split("/");
