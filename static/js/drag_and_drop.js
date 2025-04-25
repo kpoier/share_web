@@ -47,16 +47,17 @@ export function setupDragAndDrop(uploadFile) {
   function traverseFileTree(item, path = "") {
     if (item.isFile) {
       item.file((file) => {
-        const relativePath = path + file.name;
+        const relativePath = path;
         uploadFile(file, relativePath);
       });
     } else if (item.isDirectory) {
+      const newPath = path + item.name + "/";
       const dirReader = item.createReader();
       dirReader.readEntries((entries) => {
         entries.forEach((entry) => {
-          traverseFileTree(entry, path + item.name + "/");
+          traverseFileTree(entry, newPath);
         });
       });
     }
-  }
+  }  
 }

@@ -73,21 +73,25 @@ def get_files():
 @main_bp.route('/api/upload', methods=['POST'])
 def upload_file():
     """Processes file uploads"""
-    if not (file := request.files.get('uploaded_file')):
-        return jsonify({'error': 'No selected file'}), 400
+    try:
+        if not (file := request.files.get('uploaded_file')):
+            return jsonify({'error': 'No selected file'}), 400
 
-    path = request.form.get('path', '')
+        path = request.form.get('path', '')
+        path = unquote(path)
 
-    filename = secure_filename(Path(file.filename).name)
+        filename = secure_filename(Path(file.filename).name)
 
-    save_path = Path(files_folder) / path / filename
-    save_path.parent.mkdir(parents=True, exist_ok=True)
-    file.save(save_path)
+        save_path = Path(files_folder) / path / filename
+        save_path.parent.mkdir(parents=True, exist_ok=True)
+        file.save(save_path)
 
-    print(f'Upload path: {path}')
-    print(f'Upload file: {filename}')
+        print(f'Upload path: {path}')
+        print(f'Upload file: {filename}')
 
-    return jsonify({'success': 'Upload success', 'filename': filename}), 200
+        return jsonify({'success': 'Upload success', 'filename': filename}), 200
+    except Exception as e:
+        return jsonify({'error': f'An error occurred: {str(e)}'}), 500
 
 @main_bp.route('/api/delete', methods=['POST'])
 def delete_file():
