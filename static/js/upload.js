@@ -1,25 +1,25 @@
 import { loadFileList } from "./file_list.js";
 
 export function createProgressBar(file) {
-  // 创建进度条容器
+  // create progress bar container
   const progressContainer = document.createElement("div");
   progressContainer.className = "upload-progress-container";
   progressContainer.style.display = "block";
 
-  // 创建进度条
+  // create progress bar
   const progressBar = document.createElement("div");
   progressBar.className = "upload-progress-bar";
 
-  // 创建文件名（放到进度条容器中）
+  // create progress text
   const progressText = document.createElement("span");
   progressText.textContent = file.name; // 显示文件名
   progressText.className = "upload-progress-text";
 
-  // 将文件名和进度条添加到容器
+  // putting progress bar and text into container
   progressContainer.appendChild(progressText);
   progressContainer.appendChild(progressBar);
 
-  // 添加到上传区域
+  // add progress bar to the upload div
   const uploadDiv = document.getElementById("upload");
   uploadDiv.appendChild(progressContainer);
 
@@ -28,13 +28,13 @@ export function createProgressBar(file) {
       bar: progressBar,
       text: progressText,
       updateProgress: (percent) => {
-          progressBar.style.width = `${percent}%`; // 更新进度条宽度
+          progressBar.style.width = `${percent}%`; // resize progress bar
       },
       complete: (success, message) => {
           if (success) {
-              progressBar.style.backgroundColor = "#4caf50"; // 成功时绿色
+              progressBar.style.backgroundColor = "#4caf50";
           } else {
-              progressBar.style.backgroundColor = "#f44336"; // 失败时红色
+              progressBar.style.backgroundColor = "#f44336";
           }
       },
   };
