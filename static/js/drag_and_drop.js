@@ -15,14 +15,14 @@ export function setupDragAndDrop(uploadFile) {
   document.addEventListener("dragenter", (e) => {
     dragCounter++;
     if (dragCounter === 1) {
-      document.body.classList.add("highlight"); // ✨第一次進來時加上
+      document.body.classList.add("highlight");
     }
   });
 
   document.addEventListener("dragleave", (e) => {
     dragCounter--;
     if (dragCounter === 0) {
-      document.body.classList.remove("highlight"); // ✨全部離開時移除
+      document.body.classList.remove("highlight");
     }
   });
 
