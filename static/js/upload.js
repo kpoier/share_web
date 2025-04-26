@@ -12,7 +12,7 @@ export function createProgressBar(file) {
 
   // create progress text
   const progressText = document.createElement("span");
-  progressText.textContent = file.name; // 显示文件名
+  progressText.textContent = file.name;
   progressText.className = "upload-progress-text";
 
   // putting progress bar and text into container

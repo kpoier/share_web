@@ -1,4 +1,5 @@
 from urllib.parse import unquote
+import shutil
 from flask import Blueprint, render_template, send_from_directory, request, jsonify, current_app
 from werkzeug.utils import secure_filename
 from pathlib import Path
@@ -94,8 +95,20 @@ def upload_file():
         return jsonify({'error': f'An error occurred: {str(e)}'}), 500
 
 @main_bp.route('/api/delete', methods=['POST'])
-def delete_file():
-    """delete file"""
-    if delete_file_func(files_folder, request.json.get('name')):
+def delete_file_func():
+    relative_path = request.json.get('name', '')
+    file_path = Path(files_folder) / relative_path
+
+    try:
+        if file_path.is_file():
+            file_path.unlink()  # delete file
+        elif file_path.is_dir():
+            shutil.rmtree(file_path)  # delete directory
+        else:
+            return jsonify({'error': 'Path does not exist'}), 400
+        print(f'file type: {file_path.is_file()}')
+        print(f'Delete path: {relative_path}')
         return jsonify({'success': 'Delete success'}), 200
-    return jsonify({'error': 'Delete failed'}), 400
+    except Exception as e:
+        print(f"Error deleting {file_path}: {e}")
+        return jsonify({'error': str(e)}), 500
