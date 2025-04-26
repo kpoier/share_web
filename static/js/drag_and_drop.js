@@ -1,8 +1,8 @@
 export function setupDragAndDrop(uploadFile) {
+  let dragCounter = 0; // ✨新增一個 counter
+
   const events = {
     preventDefault: ["dragenter", "dragover", "dragleave", "drop"],
-    highlight: ["dragenter", "dragover"],
-    unhighlight: ["dragleave", "drop"],
   };
 
   events.preventDefault.forEach(eventName => {
@@ -12,19 +12,24 @@ export function setupDragAndDrop(uploadFile) {
     });
   });
 
-  events.highlight.forEach(eventName => {
-    document.addEventListener(eventName, () => {
-      document.body.classList.add("highlight");
-    });
+  document.addEventListener("dragenter", (e) => {
+    dragCounter++;
+    if (dragCounter === 1) {
+      document.body.classList.add("highlight"); // ✨第一次進來時加上
+    }
   });
 
-  events.unhighlight.forEach(eventName => {
-    document.addEventListener(eventName, () => {
-      document.body.classList.remove("highlight");
-    });
+  document.addEventListener("dragleave", (e) => {
+    dragCounter--;
+    if (dragCounter === 0) {
+      document.body.classList.remove("highlight"); // ✨全部離開時移除
+    }
   });
 
   document.addEventListener("drop", (e) => {
+    dragCounter = 0; // ✨drop時直接清零
+    document.body.classList.remove("highlight");
+
     const basePath = getCurrentPath();
     const items = [...e.dataTransfer.items];
 
@@ -59,5 +64,5 @@ export function setupDragAndDrop(uploadFile) {
         });
       });
     }
-  }  
+  }
 }

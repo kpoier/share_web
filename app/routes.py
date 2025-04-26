@@ -99,6 +99,9 @@ def delete_file_func():
     relative_path = request.json.get('name', '')
     file_path = Path(files_folder) / relative_path
 
+    if not str(file_path).startswith(str(Path(files_folder).resolve())):
+        return jsonify({'error': 'Permission denied.'}), 403
+
     try:
         if file_path.is_file():
             file_path.unlink()  # delete file
@@ -106,7 +109,7 @@ def delete_file_func():
             shutil.rmtree(file_path)  # delete directory
         else:
             return jsonify({'error': 'Path does not exist'}), 400
-        print(f'file type: {file_path.is_file()}')
+        print(f'file type: {"file" if file_path.is_file() else "folder"}')
         print(f'Delete path: {relative_path}')
         return jsonify({'success': 'Delete success'}), 200
     except Exception as e:
