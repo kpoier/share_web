@@ -6,7 +6,7 @@
     <title>File Sharing</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
     <link rel="icon" href="{{ url_for('static', filename='img/favicon.ico') }}" type="image/x-icon">
-</head>
+  </head>
 
   <body>
     <h1>File Sharing</h1>
@@ -16,6 +16,9 @@
     </div>
     <div class="file-list-container">
       <ul class="file-list" id="file-list"></ul>
+    </div>
+    <div id="github">
+      <a href="https://github.com/kpoier/share_web" target="_blank">GitHub</a>
     </div>
     <script src="{{ url_for('static', filename='js/index.js') }}"></script>
   </body>
