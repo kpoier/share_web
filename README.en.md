@@ -45,7 +45,7 @@ A simple and efficient file sharing web application that supports drag-and-drop 
 2. Clone the repository
    ```bash
    git clone https://github.com/kpoier/share_web
-   cd share_website
+   cd share_web
    ```
 
 3. Install dependencies
