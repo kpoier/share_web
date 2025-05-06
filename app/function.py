@@ -1,5 +1,3 @@
-from pathlib import Path
-
 def transform_datasize(size: int) -> str:
     """字节转换"""
     if size < 1024:
@@ -11,10 +9,16 @@ def transform_datasize(size: int) -> str:
     else:
         return f'{size/1024**3:.2f} GB'
 
-def delete_file_func(files_folder: str, name: str) -> bool:
-    """删除文件"""
-    file_path = Path(files_folder) / name
-    if file_path.exists():
-        file_path.unlink()
-        return True
-    return False
+def get_file_info(path):
+    """获取目录中的文件信息"""
+    files = []
+    for file_path in path.iterdir():
+        item = {'name': str(file_path.relative_to(path))}
+        if file_path.is_file():
+            item['size'] = transform_datasize(file_path.stat().st_size)
+            item['type'] = 'file'
+        elif file_path.is_dir():
+            item['size'] = ''
+            item['type'] = 'folder'
+        files.append(item)
+    return files
