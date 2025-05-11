@@ -49,7 +49,7 @@ def upload_file():
             return jsonify({'error': 'No selected file'}), 400
 
         # fetch the filename and secure it
-        filename = file.filename
+        filename = secure_filename(file.filename)
 
         # fetch the path from the request
         path = request.form.get('path', '')
