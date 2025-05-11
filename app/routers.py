@@ -21,7 +21,8 @@ def manage():
 def handle_file(name):
     """view or download file"""
     full_path = files_folder / name
-    # 分辨文件和目录
+
+    # Check if the path is within the allowed directory
     if full_path.is_file():
         return send_from_directory(full_path.parent, full_path.name)
     elif full_path.is_dir():
@@ -31,7 +32,8 @@ def handle_file(name):
 @main_bp.route('/api/get_files', methods=['GET'])
 def get_files():
     """get files list in a given folder"""
-    # 获取请求路径
+
+    # fetch the path from the request
     target_path = files_folder / request.args.get('path', '')
     if not target_path.exists() or not target_path.is_dir():
         return jsonify({'error': '文件夹不存在'}), 404
@@ -41,14 +43,22 @@ def get_files():
 def upload_file():
     """Processes file uploads"""
     try:
-        if not (file := request.files.get('uploaded_file')):
+        # fetch the file from the request
+        file = request.files.get('uploaded_file')
+        if not file:
             return jsonify({'error': 'No selected file'}), 400
-        # 创建保存路径
+
+        # fetch the filename and secure it
+        filename = file.filename
+
+        # fetch the path from the request
         path = request.form.get('path', '')
-        filename = secure_filename(Path(file.filename).name)
         save_path = files_folder / path / filename
-        # 保存文件
+
+        # check if the path is within the allowed directory
         save_path.parent.mkdir(parents=True, exist_ok=True)
+
+        # save the file
         file.save(save_path)
         print(f'Upload path: {save_path}')
 
@@ -59,7 +69,8 @@ def upload_file():
 @main_bp.route('/api/delete', methods=['POST'])
 def delete_file_func():
     file_path = files_folder / request.json.get('name', '')
-    # 检查文件路径是否在允许的目录下
+
+    # Check if the path is within the allowed directory
     if not file_path.resolve().is_relative_to(files_folder):
         return jsonify({'error': 'Permission denied.'}), 403
 
@@ -67,8 +78,8 @@ def delete_file_func():
         if file_path.is_file():
             file_path.unlink()
         else:
-            shutil.rmtree(file_path)  # 删除目录及其内容
+            shutil.rmtree(file_path)
             
-        return jsonify({'success': '删除成功'}), 200
+        return jsonify({'success': 'FINSHED'}), 200
     except Exception as e:
-        return jsonify({'error': f'删除错误: {str(e)}'}), 500
+        return jsonify({'error': f'ERROR: {str(e)}'}), 500

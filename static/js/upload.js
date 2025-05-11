@@ -48,7 +48,7 @@ export function createProgressBar(file) {
   
   export function uploadFile(file, path = "") {
     const formData = new FormData();
-    formData.append("uploaded_file", file);
+    formData.append("uploaded_file", file, file.name);
     formData.append("path", path);
   
     const progress = createProgressBar(file);
