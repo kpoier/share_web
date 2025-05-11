@@ -5,6 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Manage</title>
     <link rel="icon" href="{{ url_for('static', filename='img/favicon.ico') }}" type="image/x-icon">
+    <style>
+      .file-list {
+        list-style-type: none;
+        padding-left: 20px;
+        margin: 5px 0;
+      }
+
+      .file-info {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .folder {
+        font-weight: bold;
+        color: #1a4b80;
+      }
+
+      .file {
+        color: #007BFF;
+      }
+    </style>
 </head>
 
   <body>

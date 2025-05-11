@@ -1,65 +1,75 @@
 document.addEventListener('DOMContentLoaded', () => {
-  function loadFileList() {
-    fetch('/api/get_files')
+  function loadFileList(path = '', parentElement = null) {
+    fetch(`/api/get_files?path=${encodeURIComponent(path)}`)
       .then((response) => response.json())
       .then((fileList) => {
-        const fileListElement = document.getElementById('file-list');
-        fileListElement.innerHTML = ''; // 清空现有列表
+        const container = document.createElement('ul');
+        container.classList.add('file-list');
+
         fileList.forEach((file) => {
           const listItem = document.createElement('li');
-
-          // 创建一个文件名链接
-          const fileLink = document.createElement('a');
-          fileLink.href = `/${file.name}`;
-          fileLink.textContent = file.name;
-          fileLink.classList.add('file-name');
-
-          // 创建显示文件大小的元素
-          const fileSize = document.createElement('span');
-          fileSize.classList.add('file-size');
-          fileSize.textContent = file.size;
-
-          // 创建删除按钮
-          const deleteButton = document.createElement('button');
-          deleteButton.textContent = 'Delete';
-          deleteButton.classList.add('delete-button');
-          deleteButton.addEventListener('click', () => deleteFile(file.name));
-
-          // 将文件信息包含在一起
           const fileInfo = document.createElement('div');
           fileInfo.classList.add('file-info');
-          fileInfo.appendChild(fileLink);
-          fileInfo.appendChild(fileSize);
-          fileInfo.appendChild(deleteButton);
 
+          const fullPath = path ? `${path}/${file.name}` : file.name;
+
+          // name
+          const nameSpan = document.createElement('span');
+          nameSpan.textContent = file.name;
+          nameSpan.classList.add(file.type === 'folder' ? 'folder' : 'file');
+
+          // size
+          const sizeSpan = document.createElement('span');
+          sizeSpan.classList.add('file-size');
+          sizeSpan.textContent = file.size || '';
+
+          // delete button
+          const deleteBtn = document.createElement('button');
+          deleteBtn.textContent = 'Delete';
+          deleteBtn.classList.add('delete-button');
+          deleteBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            deleteFile(fullPath);
+          });
+
+          fileInfo.appendChild(nameSpan);
+          fileInfo.appendChild(sizeSpan);
+          fileInfo.appendChild(deleteBtn);
           listItem.appendChild(fileInfo);
-          fileListElement.appendChild(listItem);
+          container.appendChild(listItem);
+
+          // folder
+          if (file.type === 'folder') {
+            loadFileList(fullPath, listItem);
+          }
         });
+
+        if (parentElement) {
+          parentElement.appendChild(container);
+        } else {
+          const root = document.getElementById('file-list');
+          root.innerHTML = '';
+          root.appendChild(container);
+        }
       })
       .catch((error) => {
         console.error('Error loading file list:', error);
       });
   }
 
-  function deleteFile(fileName) {
+  function deleteFile(filePath) {
     fetch('/api/delete', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ name: fileName }),
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name: filePath }),
     })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log('Delete success:', data);
-        // reload file list
+      .then((res) => res.json())
+      .then(() => {
+        document.getElementById('file-list').innerHTML = '';
         loadFileList();
       })
-      .catch((error) => {
-        console.error('Error deleting file:', error);
-      });
+      .catch((err) => console.error('Error deleting file:', err));
   }
 
-  // 初始加载文件列表
   loadFileList();
 });
