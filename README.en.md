@@ -72,6 +72,17 @@ A clean and efficient file sharing web application that supports drag-and-drop u
 
 5. Visit `http://localhost:8050` to start using the application
 
+6. Custom Configuration
+
+   **Modify the `config.py` file to adjust application settings**:
+
+   ```python
+   class Config:
+      SECRET_KEY = 'your_secret_key'  # Change to a random string
+      BASE_DIR = os.path.abspath(os.path.dirname(__file__))
+      FILES_FOLDER = os.path.join(BASE_DIR, 'files')  # Can change file storage location
+   ```
+
 ## Project Structure
 
 ```
@@ -118,17 +129,6 @@ share_website/
 3. **Manage Files**:
    - Visit the `/manage` path to enter the file management page
    - The management page allows you to delete unwanted files
-
-## Custom Configuration
-
-Modify the `config.py` file to adjust application settings:
-
-```python
-class Config:
-    SECRET_KEY = 'your_secret_key'  # Change to a random string
-    BASE_DIR = os.path.abspath(os.path.dirname(__file__))
-    FILES_FOLDER = os.path.join(BASE_DIR, 'files')  # Can change file storage location
-```
 
 ## Technology Stack
 

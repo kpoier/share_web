@@ -74,6 +74,17 @@
 
 5. 访问 `http://localhost:8050` 开始使用
 
+6. 自定义配置
+
+   **修改 `config.py` 文件可调整应用设置**:
+
+   ```python
+   class Config:
+      SECRET_KEY = '你的密钥'  # 更改为随机字符串
+      BASE_DIR = os.path.abspath(os.path.dirname(__file__))
+      FILES_FOLDER = os.path.join(BASE_DIR, 'files')  # 可更改文件存储位置
+   ```
+
 ## 项目结构
 
 ```
@@ -120,17 +131,6 @@ share_website/
 3. **管理文件**:
    - 访问 `/manage` 路径可进入文件管理页面
    - 管理页面可删除不需要的文件
-
-## 自定义配置
-
-修改 `config.py` 文件可调整应用设置:
-
-```python
-class Config:
-    SECRET_KEY = '你的密钥'  # 更改为随机字符串
-    BASE_DIR = os.path.abspath(os.path.dirname(__file__))
-    FILES_FOLDER = os.path.join(BASE_DIR, 'files')  # 可更改文件存储位置
-```
 
 ## 技术栈
 
