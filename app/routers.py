@@ -1,5 +1,4 @@
 from flask import Blueprint, render_template, send_from_directory, request, jsonify, current_app
-from werkzeug.utils import secure_filename
 import shutil
 from pathlib import Path
 from .function import *
@@ -48,12 +47,9 @@ def upload_file():
         if not file:
             return jsonify({'error': 'No selected file'}), 400
 
-        # fetch the filename and secure it
-        filename = secure_filename(file.filename)
-
         # fetch the path from the request
         path = request.form.get('path', '')
-        save_path = files_folder / path / filename
+        save_path = files_folder / path / file.filename
 
         # check if the path is within the allowed directory
         save_path.parent.mkdir(parents=True, exist_ok=True)
