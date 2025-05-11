@@ -14,7 +14,7 @@ def create_app():
 
     # 在应用中注册蓝图
     with app.app_context():
-        from .routes import main_bp
+        from .routers import main_bp
         app.register_blueprint(main_bp)
 
     return app
