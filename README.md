@@ -13,11 +13,6 @@
 - 📊 实时上传进度显示
 - 🐳 Docker支持，便于部署
 
-## 技术栈
-
-- **后端**: Python, Flask
-- **前端**: HTML, CSS, JavaScript
-- **容器化**: Docker
 
 ## 安装与运行
 
@@ -25,22 +20,41 @@
 
 1. 确保已安装 [Docker](https://www.docker.com/) 和 Docker Compose
 
-2. 克隆仓库
+2. 使用 Docker 运行 (选择以下任一方式):
+
+   **方式 A: 使用 Docker 命令**
    ```bash
-   git clone https://github.com/kpoier/share_web
-   cd share_web
+   docker run -d \
+     --name share-web \
+     -p 8050:8050 \
+     -v /path/to/files:/app/files \
+     -e FLASK_DEBUG=0 \
+     --restart unless-stopped \
+     kpoier/share-web:latest
    ```
 
-3. 启动应用
+   **方式 B: 使用 Docker Compose**
    ```bash
+   # 下载 docker-compose.yaml
+   wget https://raw.githubusercontent.com/kpoier/share_web/master/docker/docker-compose.yaml
+   
+   # 运行命令
    docker-compose up -d
    ```
 
-4. 访问 `http://localhost:8050` 开始使用
+3. 访问 http://localhost:8050 开始使用
+
+4. **Docker 参数说明**:
+   - `--name share-web`: 容器名称
+   - `-p 8050:8050`: 端口映射 (主机:容器)
+   - `-v /path/to/files:/app/files`: 文件存储路径映射 (修改 `/path/to/files` 为你的本地路径)
+   - `-e FLASK_DEBUG=0`: 环境变量设置
+   - `--restart unless-stopped`: 容器重启策略
+
 
 ### 方法二: 本地运行
 
-1. 确保已安装 Python
+1. 确保已安装 Python (推荐 Python 3.8+)
 
 2. 克隆仓库
    ```bash
@@ -50,7 +64,7 @@
 
 3. 安装依赖
    ```bash
-   pip install Flask
+   pip install -r docker/requirements.txt
    ```
 
 4. 运行应用
@@ -65,20 +79,32 @@
 ```
 share_website/
 ├── app/
-│   ├── __init__.py         # Flask应用初始化
-│   ├── function.py         # 通用功能函数
-│   ├── routes.py           # 路由定义
-│   └── templates/          # 页面模板
+│   ├── [__init__.py](http://_vscodecontentref_/1)         # Flask应用初始化
+│   ├── [function.py](http://_vscodecontentref_/2)         # 通用功能函数
+│   ├── [routers.py](http://_vscodecontentref_/3)          # 路由定义
 ├── static/
 │   ├── css/                # 样式文件
+│   │   ├── [button.css](http://_vscodecontentref_/4)      # 按钮样式
+│   │   ├── [files.css](http://_vscodecontentref_/5)       # 文件列表样式
+│   │   ├── [index.css](http://_vscodecontentref_/6)       # 主页样式
+│   │   └── [upload.css](http://_vscodecontentref_/7)      # 上传进度样式
 │   ├── js/                 # JavaScript文件
+│   │   ├── [drag_and_drop.js](http://_vscodecontentref_/8)  # 拖放功能
+│   │   ├── [file_input.js](http://_vscodecontentref_/9)     # 文件输入处理
+│   │   ├── [file_list.js](http://_vscodecontentref_/10)      # 文件列表生成
+│   │   ├── [main.js](http://_vscodecontentref_/11)           # 主要JS入口
+│   │   ├── [manage.js](http://_vscodecontentref_/12)         # 管理页面JS
+│   │   └── [upload.js](http://_vscodecontentref_/13)         # 文件上传处理
 │   └── img/                # 图像资源
-├── files/                  # 上传文件存储目录
-├── config.py               # 应用配置
-├── docker-compose.yaml     # Docker Compose配置
-├── dockerfile              # Docker构建文件
-├── requirements.txt        # 依赖列表
-└── run.py                  # 应用入口点
+├── templates/              # HTML模板
+│   ├── [index.html](http://_vscodecontentref_/14)          # 主页模板
+│   └── [manage.html](http://_vscodecontentref_/15)         # 管理页面模板
+├── docker/                 # Docker相关文件
+│   ├── [docker-compose.yaml](http://_vscodecontentref_/16) # Docker Compose配置
+│   ├── dockerfile          # Docker构建文件
+│   └── [requirements.txt](http://_vscodecontentref_/17)    # 依赖列表
+├── [config.py](http://_vscodecontentref_/18)               # 应用配置
+└── [run.py](http://_vscodecontentref_/19)                  # 应用入口点
 ```
 
 ## 使用说明
@@ -105,3 +131,9 @@ class Config:
     BASE_DIR = os.path.abspath(os.path.dirname(__file__))
     FILES_FOLDER = os.path.join(BASE_DIR, 'files')  # 可更改文件存储位置
 ```
+
+## 技术栈
+
+- **后端**: Python, Flask
+- **前端**: HTML, CSS, JavaScript
+- **容器化**: Docker

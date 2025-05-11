@@ -1,9 +1,12 @@
+version: '3'
 services:
   app:
-    build: .
+    image: kpoier/share-web:latest
+    container_name: share-web
     ports:
       - "8050:8050"
     volumes:
-      - ./files:/app/files
+      - ./path/to/filesfolder:/app/files
     environment:
-      - FLASK_ENV=development
+      - FLASK_DEBUG=0
+    restart: unless-stopped
