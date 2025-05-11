@@ -12,8 +12,9 @@
   </head>
 
   <body>
-    <h1>File Sharing</h1>
-    <div  id="upload"></div>
+    <h1>
+      <a href="https://github.com/kpoier/share_web" target="_blank" rel="noopener">File Sharing</a>
+    </h1>
     <div class="button-container">
       <button id="uploadFilesButton" class="button">Upload Files</button>
       <button id="uploadFoldersButton" class="button">Upload Folders</button>
@@ -21,12 +22,12 @@
       <input type="file" id="folderInput" style="display: none" multiple webkitdirectory />
     </div>
 
+    <div  id="upload"></div>
+
     <div class="file-list-container">
       <ul class="file-list" id="file-list">
       </ul>
     </div>
-
-    <a id="github" href="https://github.com/kpoier/share_web" target="_blank">GitHub</a>
 
     <script type="module" src="{{ url_for('static', filename='js/main.js') }}"></script>
   </body>

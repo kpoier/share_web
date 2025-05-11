@@ -1,0 +1,77 @@
+@keyframes slideIn {
+    from {
+      transform: translateX(-50%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+  #upload {
+    max-width: 600px;
+    margin: 0 auto; /* 置中整個 upload 區塊 */
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* 多個進度條間距 */
+    align-items: center;
+  }
+    
+  /* 上传进度条容器 */
+  .upload-progress-container {
+    width: 100%;
+    background-color: #e0e0e0;
+    border-radius: 5px;
+    margin: 10px 0;
+    height: 20px;
+    position: relative;
+    overflow: hidden;
+    display: none; /* 默认隐藏 */
+  }
+
+.upload-progress-container:hover {
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+  }
+
+/* 上传进度条 */
+.upload-progress-bar {
+  background-color: #4caf50;
+  height: 100%;
+  width: 0%;
+  transition: width 0.4s ease;
+  position: absolute; /* 让进度条在容器内绝对定位 */
+  top: 0;
+  left: 0;
+}
+
+.upload-progress-text {
+    position: relative;
+    z-index: 1; /* 确保文字在进度条上方 */
+    color: #000; /* 设置文字颜色 */
+    font-size: 14px;
+    pointer-events: none; /* 防止文字阻挡鼠标事件 */
+    text-align: center;
+}
+  
+/* 文件上传状态显示 */
+.upload-status {
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 5px;
+  display: none;
+  text-align: center;
+}
+
+.upload-success {
+  background-color: #dff0d8;
+  color: #3c763d;
+  border: 1px solid #d6e9c6;
+}
+.upload-error {
+    background-color: #f2dede;
+    color: #a94442;
+    border: 1px solid #ebccd1;
+}
+    

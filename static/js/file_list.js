@@ -76,23 +76,10 @@ export function loadFileList() {
         fileSize.classList.add("size");
         fileSize.textContent = file.size;
 
-        // add copy button
-        const copyButton = document.createElement("button");
-        copyButton.textContent = "Copy";
-        copyButton.classList.add("sub-button");
-        copyButton.addEventListener("click", (event) => {
-          event.preventDefault();
-          const fullUrl = encodeURI(`${window.location.origin}/${fullPath}`);
-          navigator.clipboard.writeText(fullUrl)
-            .then(() => showCopyMessage("Copied to clipboard!"))
-            .catch((err) => console.error("Failed to copy: ", err));
-        });
-
         const fileInfo = document.createElement("div");
         fileInfo.classList.add("file-info");
         fileInfo.appendChild(fileLink);
         fileInfo.appendChild(fileSize);
-        fileInfo.appendChild(copyButton);
 
         listItem.appendChild(fileInfo);
         fileListElement.appendChild(listItem);

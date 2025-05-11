@@ -1,0 +1,116 @@
+@keyframes slideInFromLeft {
+    0% {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+    80% {
+      transform: translateX(10%);
+      opacity: 1;
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+  
+/* 文件列表项样式 */
+.file-list li {
+  background-color: #fff;
+  margin: 15px 0;      /* 增加间距 */
+  padding: 20px;       /* 放大每项的间距 */
+  border-radius: 10px; /* 更大的圆角 */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15); /* 更显眼的阴影 */
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* 垂直居中对齐所有项目 */
+  font-size: 1.2em;    /* 放大字体 */
+  word-break: break-word; /* 确保长文本可以正常换行 */
+  overflow-wrap: break-word; /* 确保长单词可以换行 */
+}
+  
+
+.file-list-container {
+    max-width: 800px;    /* 限制最大宽度 */
+    margin: 0 auto;      /* 居中显示 */
+    text-align: left;    /* 让内容左对齐 */
+    width: 95%; /* 确保在移动设备上有边距 */
+    overflow: hidden; /* 防止内容溢出 */
+    margin-top: -20px;
+}
+
+.file-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+/* 文件名链接样式 */
+.file {
+  flex: 1;             /* 文件名占据最大的空间 */
+  text-decoration: none;
+  color: #007BFF;
+  font-weight: bold;   /* 加粗文件名 */
+  word-break: break-word; /* 确保长文件名可以换行 */
+  overflow-wrap: break-word;
+  max-width: 100%;
+  display: inline-block; /* 使得文本能够正确换行 */
+}
+
+/* 文件名链接悬停状态 */
+.file:hover {
+  text-decoration: underline;
+}
+
+/* folder outlay */
+.folder {
+    flex: 1;
+    text-decoration: none;
+    color: #1a4b80;
+    font-weight: bold;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    max-width: 100%;
+    display: inline-block;
+}
+
+.folder:hover {
+    text-decoration: underline;
+}
+
+.size {
+  margin-left: 30px;   /* 增加文件大小和修改时间之间的间距 */
+  color: #555;
+  font-size: 1.1em;    /* 放大文件大小和修改时间的字体 */
+  display: flex;       /* 使用flex布局 */
+  align-items: center; /* 垂直居中对齐文本 */
+  height: 100%;        /* 占满父容器高度 */
+}
+
+/* 居中对齐文件信息 */
+.file-info {
+  display: flex;
+  justify-content: space-between; /* 分开每项内容 */
+  align-items: center; /* 垂直居中对齐内容 */
+  width: 100%;
+  flex-wrap: wrap; /* 允许项目在需要时换行 */
+}
+
+/* back link */
+#breadcrumb {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    font-weight: bold;
+    padding-bottom: 10px;
+  }
+
+  #breadcrumb a {
+    color: #007bff;
+    text-decoration: none;
+    margin: 0 2px;
+  }
+  
+  #breadcrumb a:hover {
+    text-decoration: underline;
+  }
+  
+  

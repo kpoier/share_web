@@ -4,7 +4,7 @@ from pathlib import Path
 def create_app():
     """创建并配置Flask应用"""
     # 初始化Flask应用，设置静态文件目录
-    app = Flask(__name__, static_folder='../static', static_url_path='/static')
+    app = Flask(__name__, static_folder='../static', static_url_path='/static', template_folder='../templates')
     # 从config.py加载配置
     app.config.from_object('config.Config')
     

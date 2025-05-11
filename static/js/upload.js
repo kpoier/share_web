@@ -31,18 +31,20 @@ export function createProgressBar(file) {
           progressBar.style.width = `${percent}%`; // resize progress bar
       },
       complete: (success, message) => {
+        progressText.textContent = message;
+      
         if (success) {
-            progressBar.style.backgroundColor = "#4caf50";
-            setTimeout(() => {
-                progressContainer.remove();
-            }, 2000);
+          progressBar.style.backgroundColor = "#4caf50";
+          setTimeout(() => {
+            progressContainer.remove();
+          }, 2000);
         } else {
-            progressBar.style.backgroundColor = "#f44336";
-            setTimeout(() => {
-                progressContainer.remove();
-            }, 5000);
+          progressBar.style.backgroundColor = "#f44336";
+          setTimeout(() => {
+            progressContainer.remove();
+          }, 5000);
         }
-    }    
+      }          
   };
 }
   
