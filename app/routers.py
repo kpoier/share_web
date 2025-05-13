@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, send_from_directory, request, jsonify, current_app
 import shutil
 from pathlib import Path
+import urllib.parse
 from .function import *
 
 main_bp = Blueprint('main', __name__) 
@@ -30,13 +31,41 @@ def handle_file(name):
 
 @main_bp.route('/api/get_files', methods=['GET'])
 def get_files():
-    """get files list in a given folder"""
+    """Get files list in a given folder"""
+    try:
+        raw_path = request.args.get('path', '')
 
-    # fetch the path from the request
-    target_path = files_folder / request.args.get('path', '')
-    if not target_path.exists() or not target_path.is_dir():
-        return jsonify({'error': '文件夹不存在'}), 404
-    return jsonify(get_file_info(target_path))
+        decoded_path = urllib.parse.unquote(raw_path)
+
+        cleaned_path = decoded_path.strip('/')
+
+        target_path = files_folder / cleaned_path
+
+        if not target_path.exists():
+            print(f"Path does not exist: {target_path}")
+            return jsonify({'error': 'Folder not exist'}), 404
+        if not target_path.is_dir():
+            print(f"Path is not a directory: {target_path}")
+            return jsonify({'error': 'Path is not a directory'}), 400
+
+        files = get_file_info(target_path)
+        print(f"Files in {target_path}: {files}")
+        return jsonify(files)
+
+    except Exception as e:
+        print(f"Error: {e}")
+        return jsonify({'error': 'Internal server error'}), 500
+
+def get_file_info(target_path):
+    """Helper function to get file information"""
+    files = []
+    for item in target_path.iterdir():
+        files.append({
+            'name': item.name,
+            'type': 'folder' if item.is_dir() else 'file',
+            'size': item.stat().st_size if item.is_file() else ''
+        })
+    return files
 
 @main_bp.route('/api/upload', methods=['POST'])
 def upload_file():
