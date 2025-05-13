@@ -58,7 +58,7 @@ def upload_file():
         file.save(save_path)
         print(f'Upload path: {save_path}')
 
-        return jsonify({'success': 'Upload success', 'filename': filename}), 200
+        return jsonify({'success': 'Upload success', 'filename': file.filename}), 200
     except Exception as e:
         return jsonify({'error': f'An error occurred: {str(e)}'}), 500
 
