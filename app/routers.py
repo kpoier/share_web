@@ -1,8 +1,8 @@
 from flask import Blueprint, render_template, send_from_directory, request, jsonify, current_app
 import shutil
 from pathlib import Path
-import urllib.parse
-from .function import *
+from urllib.parse import unquote
+from .function import get_file_info
 
 main_bp = Blueprint('main', __name__) 
 files_folder = Path(current_app.config.get('FILES_FOLDER', 'files')).resolve()
@@ -33,47 +33,22 @@ def handle_file(name):
 def get_files():
     """Get files list in a given folder"""
     try:
-        raw_path = request.args.get('path', '')
-
-        decoded_path = urllib.parse.unquote(raw_path)
-
-        cleaned_path = decoded_path.strip('/')
-
-        target_path = files_folder / cleaned_path
-
-        if not target_path.exists():
-            print(f"Path does not exist: {target_path}")
+        # fetch the path from the request
+        target_path = files_folder / unquote(request.args.get('path', '')).strip('/')
+        if not target_path.exists() or not target_path.is_dir():
             return jsonify({'error': 'Folder not exist'}), 404
-        if not target_path.is_dir():
-            print(f"Path is not a directory: {target_path}")
-            return jsonify({'error': 'Path is not a directory'}), 400
-
-        files = get_file_info(target_path)
-        print(f"Files in {target_path}: {files}")
-        return jsonify(files)
-
+        
+        return jsonify(get_file_info(target_path))
     except Exception as e:
-        print(f"Error: {e}")
+        print(f"Error processing directory {target_path}: {e}")
         return jsonify({'error': 'Internal server error'}), 500
-
-def get_file_info(target_path):
-    """Helper function to get file information"""
-    files = []
-    for item in target_path.iterdir():
-        files.append({
-            'name': item.name,
-            'type': 'folder' if item.is_dir() else 'file',
-            'size': item.stat().st_size if item.is_file() else ''
-        })
-    return files
 
 @main_bp.route('/api/upload', methods=['POST'])
 def upload_file():
     """Processes file uploads"""
     try:
         # fetch the file from the request
-        file = request.files.get('uploaded_file')
-        if not file:
+        if not (file := request.files.get('uploaded_file')):
             return jsonify({'error': 'No selected file'}), 400
 
         # fetch the path from the request
@@ -82,8 +57,6 @@ def upload_file():
 
         # check if the path is within the allowed directory
         save_path.parent.mkdir(parents=True, exist_ok=True)
-
-        # save the file
         file.save(save_path)
         print(f'Upload path: {save_path}')
 
@@ -104,7 +77,7 @@ def delete_file_func():
             file_path.unlink()
         else:
             shutil.rmtree(file_path)
-            
+
         return jsonify({'success': 'FINSHED'}), 200
     except Exception as e:
         return jsonify({'error': f'ERROR: {str(e)}'}), 500
